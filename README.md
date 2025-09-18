@@ -1,15 +1,19 @@
-# Project Title
+# Project Name
 
-Short description of the project.
+A brief description of your project — what it does and why it matters.
 
-## Installation
+## 📦 Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+What needs to be installed before using your project?
 
 ```bash
-# Clone the repo
-git clone https://github.com/your-username/your-repo.git
-
-# Go into the project folder
-cd your-repo
-
-# Install dependencies
+# Example
 npm install
