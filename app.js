@@ -10,7 +10,7 @@ document.getElementById("newNoteBtn").onclick = () => {
 };
 
 document.getElementById("saveNoteBtn").onclick = () => {
-  //renderNotes();
+  renderNotes();
 };
 
 document.getElementById("deleteBtn").onclick = () => {
