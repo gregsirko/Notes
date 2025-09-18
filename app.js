@@ -72,7 +72,7 @@ function renderNotes() {
     const link = document.createElement("a");
     link.href = "#";
 
-    const previewLength = 12;
+    const previewLength = 15;
     const fullText = noteData.content;
     link.textContent = fullText.length > previewLength
       ? fullText.substring(0, previewLength) + "…"

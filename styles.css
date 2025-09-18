@@ -76,8 +76,11 @@
             display: flex;
             justify-content: flex-start;
             gap: 10px;
-            height: 5vh;
+            height: auto;
             padding: 5px;
+            z-index: 9999;
+            position: relative;
+            top: 0;
         }
 
         .highlight {
@@ -154,5 +157,6 @@
         @media only screen and (max-width: 609px) {
             button {
                 font-size: 11px;
+                padding: 5px 11px;
             }
         }
