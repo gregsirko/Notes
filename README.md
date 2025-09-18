@@ -1,6 +1,6 @@
 # Notes App
 
-This app is a simple notepad with a friendly interface. It makes use of simple operations, an organic layout, and saves to local storage.
+This app is a simple notepad with a friendly interface. It makes use of straightforward operations, an organic layout, and saves to local storage.
 
 ## 📦 Features
 
