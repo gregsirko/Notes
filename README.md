@@ -1,25 +1,23 @@
-# Project Name
+# Notes App
 
-A brief description of your project — what it does and why it matters.
+This app is a simple notepad with a friendly interface. It makes use of simple operations, an organic layout, and saves to local storage.
 
 ## 📦 Features
 
-- YEEAAAAHHHHH!!!!!1
-- Yo yo yo yo yo
-- Feature 3
+- Create notes.
+- Save notes.
+- Edit notes.
+- Delete notes.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-What needs to be installed before using your project?
-
-```bash
-# Example
-npm install
-```
+Browser. Get the repo somehow.
 
 ## 🛠️ Usage
+
+Download the repo. Open terminal. Type these in bash.
 
 ```bash
 # Example
