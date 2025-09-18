@@ -17,3 +17,12 @@ What needs to be installed before using your project?
 ```bash
 # Example
 npm install
+```
+
+## 🛠️ Usage
+
+```bash
+# Example
+cd your-repo
+open index.html
+```
