@@ -1,23 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Local Notes App</title>
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-    <style></style>
   </head>
   <body>
-    <div id="notesTopTools">
-      <button id="newNoteBtn">🆕 New</button>
-      <button id="saveNoteBtn">✅ Save</button>
-      <button id="editNoteBtn">✏️ Edit</button>
-      <button id="deleteBtn">❌ Delete</button>
-    </div>
     <div id="noteApp">
-      <div id="notesList"></div>
+      <nav id="utilityNav">
+        <div class="nav-top">
+          <div class="avatar">
+            <img
+              src="https://robohash.org/wildlife-avatar-42.png?set=set2"
+              alt="Animal Avatar"
+            />
+          </div>
+          <button class="nav-icon active">
+            <i class="bx bx-home-alt"></i>
+          </button>
+          <button class="nav-icon"><i class="bx bx-edit"></i></button>
+          <button class="nav-icon"><i class="bx bx-calendar"></i></button>
+          <button class="nav-icon"><i class="bx bx-bookmark"></i></button>
+        </div>
+        <div class="nav-bottom">
+          <button class="nav-icon"><i class="bx bx-help-circle"></i></button>
+          <button class="nav-icon"><i class="bx bx-cog"></i></button>
+        </div>
+      </nav>
+
+      <div id="sidebar">
+        <div class="search-box">
+          <i class="bx bx-search"></i>
+          <input type="text" placeholder="Search notes" />
+        </div>
+
+        <div class="section-title">MY NOTES <i class="bx bx-plus"></i></div>
+
+        <div id="notesTopTools">
+          <button id="newNoteBtn" class="btn btn-new">
+            <i class="bx bx-plus"></i> New (Shift N)
+          </button>
+          <button id="saveNoteBtn" class="btn btn-save" style="display: none">
+            <i class="bx bx-save"></i> Save (Ctrl S)
+          </button>
+          <button id="editNoteBtn" style="display: none">Edit</button>
+        </div>
+
+        <div id="notesList">
+          <div class="note">
+            <a>Note Title Preview...</a>
+            <p class="note-timestamp">Just now</p>
+          </div>
+        </div>
+
+        <div class="section-title">CATEGORIES <i class="bx bx-plus"></i></div>
+        <ul class="categories">
+          <li class="active">
+            <span># Personal</span> <span class="badge">12</span>
+          </li>
+          <li><span># Work</span></li>
+          <li><span># Blogging</span></li>
+        </ul>
+      </div>
+
       <div id="notesMain">
-        <textarea id="noteContent" placeholder="Write a new note..."></textarea>
+        <div class="topContainer">
+          <div class="note-meta">
+            <span class="breadcrumbs" id="activeCategoryDisplay">#General</span>
+            <span class="timestamp">Today, 15:28</span>
+          </div>
+
+          <form id="tagForm" style="display: flex; gap: 8px; margin: 0 16px">
+            <input
+              type="text"
+              id="tagInput"
+              placeholder="+ Add category..."
+              maxlength="15"
+              style="
+                background: #1c1e24;
+                border: 1px solid #242832;
+                color: #fff;
+                padding: 4px 10px;
+                border-radius: 4px;
+                outline: none;
+                font-size: 0.85rem;
+              "
+            />
+          </form>
+
+          <button id="deleteBtn"><i class="bx bx-trash"></i></button>
+        </div>
+
+        <div id="textFormatToolbar">
+          <button
+            type="button"
+            class="format-btn"
+            id="boldBtn"
+            title="Bold (Ctrl+B)"
+          >
+            <b>B</b>
+          </button>
+          <button
+            type="button"
+            class="format-btn"
+            id="underlineBtn"
+            title="Underline (Ctrl+U)"
+          >
+            <u>U</u>
+          </button>
+          <button id="bulletListBtn" title="Insert Bulleted List">
+            <i class="bx bx-list-ul"></i>
+          </button>
+        </div>
+
+        <div
+          id="noteContent"
+          contenteditable="true"
+          data-placeholder="Write a new note..."
+        ></div>
       </div>
     </div>
     <script src="app.js"></script>
