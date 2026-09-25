@@ -434,49 +434,13 @@ document.addEventListener("keydown", (e) => {
 // 🧼 INTELLIGENT RICH-TEXT PASTE CLEANER
 // ==========================================
 noteContent.addEventListener("paste", (e) => {
-  // 1. Grab the rich text HTML content from the clipboard layer
-  const clipboardHtml = e.clipboardData.getData("text/html");
-
-  // If there is no rich HTML structure available, let the browser handle standard text paste
-  if (!clipboardHtml) return;
-
-  // 2. Prevent the default messy browser paste action
   e.preventDefault();
 
-  // 3. Load the clipboard HTML string into a temporary isolated element to clean it
-  const sandbox = document.createElement("div");
-  sandbox.innerHTML = clipboardHtml;
+  const text = e.clipboardData.getData("text/plain");
 
-  // 4. Target all elements within the pasted chunk that contain custom style attributes
-  const styledElements = sandbox.querySelectorAll("[style]");
+  document.execCommand("insertText", false, text);
 
-  styledElements.forEach((el) => {
-    // ❌ Strip off styling blocks that clash with your dark theme color tokens
-    el.style.backgroundColor = "";
-    el.style.color = "";
-    el.style.fontFamily = "";
-    el.style.fontSize = "";
-    el.style.lineHeight = "";
-
-    // If the style attribute is now completely empty, remove the attribute entirely to keep HTML clean
-    if (!el.getAttribute("style")) {
-      el.removeAttribute("style");
-    }
-  });
-
-  // 5. Safely insert the newly sanitized structural HTML right where the cursor is blinking
-  const selection = window.getSelection();
-  if (!selection.rangeCount) return;
-  selection.deleteFromDocument(); // Wipes out text if user highlighted a section to overwrite
-
-  const range = selection.getRangeAt(0);
-  const fragment = range.createContextualFragment(sandbox.innerHTML);
-  range.insertNode(fragment);
-
-  // Move the blinking typing cursor neatly to the end of the newly pasted text
-  selection.collapseToEnd();
-
-  // 6. Force our silent background auto-save loop to trigger immediately
+  updateFormatButtons();
   triggerSilentSave();
 });
 
@@ -506,6 +470,57 @@ document.getElementById("underlineBtn").addEventListener("click", (e) => {
   document.execCommand("underline", false, null);
   noteContent.focus();
 });
+
+const formatButtons = document.querySelectorAll(".format-btn[data-format]");
+
+formatButtons.forEach((button) => {
+  button.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+  });
+
+  button.addEventListener("click", () => {
+    noteContent.focus();
+
+    document.execCommand("formatBlock", false, button.dataset.format);
+
+    updateFormatButtons();
+    triggerSilentSave();
+  });
+});
+
+function updateFormatButtons() {
+  formatButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  const selection = window.getSelection();
+
+  if (!selection.rangeCount) return;
+
+  let element = selection.anchorNode;
+
+  if (element.nodeType === Node.TEXT_NODE) {
+    element = element.parentElement;
+  }
+
+  const block = element.closest("p, h1, h2, h3, h4, h5, h6");
+
+  if (!block || !noteContent.contains(block)) return;
+
+  const tag = block.tagName.toLowerCase();
+
+  const activeButton = document.querySelector(
+    `.format-btn[data-format="${tag}"]`,
+  );
+
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
+}
+
+noteContent.addEventListener("keyup", updateFormatButtons);
+noteContent.addEventListener("mouseup", updateFormatButtons);
+noteContent.addEventListener("input", updateFormatButtons);
 
 // ==========================================
 // 📋 BULLETED LIST FORMATTING TOOL
@@ -577,3 +592,23 @@ renderNotes();
 highlightSelectedNote();
 renderNoteContent();
 renderCategories(); // 🎯 ✅ Render tags on initial app engine launch
+
+const sidebar = document.getElementById("sidebar");
+const resize = document.getElementById("sidebarResize");
+
+resize.onmousedown = (e) => {
+  const startX = e.clientX;
+  const startWidth = sidebar.offsetWidth;
+
+  const move = (e) => {
+    sidebar.style.width = startWidth + e.clientX - startX + "px";
+  };
+
+  const stop = () => {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", stop);
+  };
+
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", stop);
+};

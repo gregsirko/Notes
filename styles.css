@@ -17,7 +17,6 @@ html {
     -apple-system,
     sans-serif !important;
   color: #d8d8d8; /* Off-white text to reduce contrast strain */
-  margin: 0;
   padding: 0;
 }
 
@@ -162,13 +161,26 @@ svg.lucide {
    4. COLUMN 2: MIDDLE PANEL (SEARCH, TOOLS, SECTIONS, NOTESLIST)
    ========================================== */
 #sidebar {
-  width: 490px;
+  width: 400px;
+  max-width: 490px;
+  min-width: 190px;
   background-color: #16171b;
   border-right: 1px solid #22252c;
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
   height: 100%;
+  user-select: none;
+  position: relative;
+}
+
+#sidebarResize {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  cursor: ew-resize;
 }
 
 .search-box {
@@ -493,6 +505,11 @@ textarea::placeholder {
   color: #fff !important;
 }
 
+.format-btn.active {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
 .note.highlight {
   background-color: #1b2234;
   border: 1px solid #4875e9 !important; /* Premium snap response match */
@@ -513,6 +530,50 @@ textarea::placeholder {
   white-space: pre-wrap; /* Keeps normal paragraph spacing breaking */
   border-radius: 9px;
   border: 1px solid #1b2234;
+}
+
+#noteContent h1,
+#noteContent h2,
+#noteContent h3,
+#noteContent h4,
+#noteContent h5,
+#noteContent h6 {
+  margin: 0.5em 0;
+  color: #e4e6eb;
+}
+
+#noteContent h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+#noteContent h2 {
+  font-size: 1.7rem;
+  line-height: 1.25;
+}
+
+#noteContent h3 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+}
+
+#noteContent h4 {
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+#noteContent h5 {
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+#noteContent h6 {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+#noteContent p {
+  margin: 0.5em 0;
 }
 
 #noteContent:focus {
